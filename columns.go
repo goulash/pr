@@ -22,7 +22,9 @@ const (
 //
 // If hspace is < 0, PrintItemsInColumns panics.
 func PrintItemsInColumns(list []string, hspace int) {
-	if hspace
+	if hspace < 0 {
+		panic("hspace cannot be less than 0")
+	}
 
 	n := len(list)
 	rc := runes(list)
