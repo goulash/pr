@@ -2,30 +2,51 @@
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 
+// Naming
+//
+// The issue at the moment is deciding what names to give the functions
+// and the future functions. So here I will try to list the functions
+// I anticipate in this package concerning columns:
+//
+// The functions are prefixed with 'F' when with a Writer.
+//
+// PrintColumns(Writer, int, int, string)
+//     Print a string into a defined set of columns
+//
+// PrintAutoColumns(Writer, int, string)
+//     Arrange a string into as many columns as possible
+//
+// PrintGrid(Writer, int, int, []string)
+//	   Print a list of strings into the specified number of columns
+//
+// PrintAutoGrid(Writer, int, []string)
+//     Print a list of strings into an optimal grid formation
+
 package pr
 
 import (
 	"fmt"
+	"io"
 	"strings"
 	"unicode/utf8"
 )
 
-const (
-	columnPadding = 2
-)
+var columnPadding uint = 2
 
-// PrintItemsInColumns prints the items in the given list in as many columns as
+func GetColumnPadding() uint {
+	return columnPadding
+}
+
+func SetColumnPadding(uint val) {
+	columnPadding = val
+}
+
+// FprintGrid prints the items in the given list in as many columns as
 // makes sense, given the horizontal space available.
 //
 // It will not print items in more columns than necessary: the minimum
 // number of columns is used to attain the minimum row count.
-//
-// If hspace is < 0, PrintItemsInColumns panics.
-func PrintItemsInColumns(list []string, hspace int) {
-	if hspace < 0 {
-		panic("hspace cannot be less than 0")
-	}
-
+func FprintAutoGrid(w Writer, hspace uint, list []string) {
 	n := len(list)
 	rc := runes(list)
 	span := columns(rc, columnPadding, hspace)

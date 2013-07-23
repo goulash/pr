@@ -5,7 +5,7 @@
 //
 // Package pr implements functions for pretty printing of information.
 //
-// Example:
+// Example
 //
 //  import (
 //  	"bufio"
@@ -15,7 +15,7 @@
 //  	"os"
 //  	"strings"
 //
-//  	"github.com/cassava/pr"
+//  	"github.com/goulash/pr"
 //  )
 //
 //  func main() {
@@ -37,6 +37,6 @@
 //  	width := flag.Int("width", -1, "width of the terminal")
 //  	flag.Parse()
 //
-//  	pr.Printc(buffer, *width)
+//  	pr.PrintAutoGrid(buffer, *width)
 //  }
 package pr
