@@ -8,6 +8,8 @@ Package pr implements functions for pretty printing of information.
 The following example program demonstrates imitating the columns
 outputted by the "ls" program. Run it like so: "ls -1 | ./test".
 
+	package main
+
 	import (
 		"bufio"
 		"flag"
@@ -38,7 +40,7 @@ outputted by the "ls" program. Run it like so: "ls -1 | ./test".
 		width := flag.Int("width", -1, "width of the terminal")
 		flag.Parse()
 
-		if width < 0 {
+		if *width < 0 {
 			pr.PrintFlex(buffer)
 		} else {
 			pr.FprintFlex(os.Stdout, *width, buffer)
