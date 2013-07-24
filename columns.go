@@ -7,7 +7,6 @@ package pr
 import (
 	"fmt"
 	"io"
-	"os"
 	"strings"
 	"unicode/utf8"
 )
@@ -17,7 +16,7 @@ var columnPadding = 2
 
 // SetColumnPadding sets the number of spaces that are between two columns.
 // The default value is two, which comes from the GNU utility "ls".
-func SetColumnPadding(int padding) {
+func SetColumnPadding(padding int) {
 	if padding < 0 {
 		columnPadding = 2 // default value
 	} else {

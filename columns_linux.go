@@ -2,14 +2,20 @@
 // Use of this source code is governed by an MIT license
 // that can be found in the LICENSE file.
 
+// +build linux
+
 package pr
 
+import (
+	"os"
+)
+
 func PrintGrid(columns int, list []string) {
-	tw := GetTerminalWidth()
+	tw := StdoutTerminalWidth()
 	FprintGrid(os.Stdout, tw, columns, list)
 }
 
 func PrintFlex(list []string) {
-	tw := GetTerminalWidth()
+	tw := StdoutTerminalWidth()
 	FprintFlex(os.Stdout, tw, list)
 }

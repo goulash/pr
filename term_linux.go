@@ -11,8 +11,6 @@ package pr
 import (
 	"syscall"
 	"unsafe"
-
-	"code.google.com/p/go.crypto/ssh/terminal"
 )
 
 // GetTerminalWidth returns the current width of the connected terminal for the
@@ -23,7 +21,7 @@ import (
 func GetTerminalWidth(fd int) int {
 	var dimensions [4]uint16
 
-	if _, _, err := syscall.Syscall6(syscall.SYS_IOCTL, fd, uintptr(syscall.TIOCGWINSZ), uintptr(unsafe.Pointer(&dimensions)), 0, 0, 0); err != 0 {
+	if _, _, err := syscall.Syscall6(syscall.SYS_IOCTL, uintptr(fd), uintptr(syscall.TIOCGWINSZ), uintptr(unsafe.Pointer(&dimensions)), 0, 0, 0); err != 0 {
 		return -1
 	}
 
