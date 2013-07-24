@@ -4,22 +4,12 @@
 
 package pr
 
-func PrintColumns(columns int, text string) {
-	tw := GetTerminalWidth()
-	FprintColumns(os.Stdout, tw, columns, text)
-}
-
-func PrintAutoColumns(text string) {
-	tw := GetTerminalWidth()
-	FprintAutoColumns(os.Stdout, tw, text)
-}
-
 func PrintGrid(columns int, list []string) {
 	tw := GetTerminalWidth()
-	FprintColumns(os.Stdout, tw, columns, list)
+	FprintGrid(os.Stdout, tw, columns, list)
 }
 
-func PrintAutoGrid(list []string) {
+func PrintFlex(list []string) {
 	tw := GetTerminalWidth()
-	FprintColumns(os.Stdout, tw, list)
+	FprintFlex(os.Stdout, tw, list)
 }

@@ -5,10 +5,8 @@
 /*
 Package pr implements functions for pretty printing of information.
 
-Currently, it is not in a usable state, but this will change very
-soon!
-
-Example
+The following example program demonstrates imitating the columns
+outputted by the "ls" program. Run it like so: "ls -1 | ./test".
 
 	import (
 		"bufio"
@@ -40,7 +38,11 @@ Example
 		width := flag.Int("width", -1, "width of the terminal")
 		flag.Parse()
 
-		pr.PrintAutoGrid(buffer, *width)
+		if width < 0 {
+			pr.PrintFlex(buffer)
+		} else {
+			pr.FprintFlex(os.Stdout, *width, buffer)
+		}
 	}
 
 */

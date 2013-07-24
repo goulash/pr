@@ -25,21 +25,29 @@ func SetColumnPadding(int padding) {
 	}
 }
 
-func FprintColumns(w io.Writer, hspace, columns int, text string)
+// FprintGrid tries to print the items in the given list in the given
+// number of columns.
+//
+// If it is not possible to fit the items in that number of columns,
+// then the items are printed in as many columns as possible.
+func FprintGrid(w io.Writer, hspace, columns int, list []string) {
+	writeGrid(w, hspace, columns, list)
+}
 
-func FprintAutoColumns(w io.Writer, hspace int, text string)
-
-func FprintGrid(w io.Writer, hspace, columns int, list []string)
-
-// FprintGrid prints the items in the given list in as many columns as
+// FprintFlex prints the items in the given list in as many columns as
 // makes sense, given the horizontal space available.
 //
 // It will not print items in more columns than necessary: the minimum
 // number of columns is used to attain the minimum row count.
-func FprintAutoGrid(w io.Writer, hspace int, list []string) {
+func FprintFlex(w io.Writer, hspace int, list []string) {
+	writeGrid(w, hspace, 0, list)
+}
+
+// writeGrid is the basis for all the other column or grid functions.
+func writeGrid(w io.Writer, hspace, maxcols int, list []string) {
 	n := len(list)
 	rc := runes(list)
-	span := columns(rc, columnPadding, hspace)
+	span := columns(rc, columnPadding, maxcols, hspace)
 	cols := len(span)
 
 	if cols <= 1 {
@@ -71,7 +79,7 @@ func FprintAutoGrid(w io.Writer, hspace int, list []string) {
 //
 // If the return value is nil, then only one column is supported (if at all),
 // otherwise it contains the length of each column, including the padding.
-func columns(list []int, padding, hspace int) []int {
+func columns(list []int, padding, maxcols, hspace int) []int {
 	if hspace <= 0 {
 		return nil
 	}
@@ -79,9 +87,13 @@ func columns(list []int, padding, hspace int) []int {
 	n := len(list)
 	rows := n
 	cols := []int(nil)
+	max := n
+	if maxcols > 0 {
+		max = maxcols
+	}
 
 trial:
-	for c := 2; c <= n; c++ {
+	for c := 2; c <= max; c++ {
 		g := newGridFromCols(n, c)
 
 		// Continue if we don't reduce rows with this many columns.
