@@ -68,9 +68,6 @@ func writeGrid(w io.Writer, hspace, maxcols int, list []string) {
 			fmt.Print("\n")
 		}
 	}
-	if n%cols != 0 {
-		fmt.Print("\n")
-	}
 }
 
 // columns returns the amount of columns that can fit in space, taken the list
