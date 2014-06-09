@@ -25,7 +25,7 @@ func GetTerminalWidth(fd int) int {
 		return -1
 	}
 
-	return int(dimensions[0])
+	return int(dimensions[1])
 }
 
 // StdoutTerminalWidth returns the current width of the terminal (if any)
